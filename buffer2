@@ -1,0 +1,252 @@
+#include <iostream>
+#include <vector>
+#include <queue>
+#include <utility>
+#include <cmath>
+
+struct Point {
+    double x, y;
+    
+    bool operator==(const Point& other) const {
+        return x == other.x && y == other.y;
+    }
+    
+    Point operator-(const Point& other) const {
+        return {x - other.x, y - other.y};
+    }
+    
+    double distance(const Point& other) const {
+        return std::sqrt((x - other.x) * (x - other.x) + (y - other.y) * (y - other.y));
+    }
+};
+
+struct Vector {
+    double x, y;
+    
+    Vector normalized() const {
+        double length = std::sqrt(x * x + y * y);
+        return {x / length, y / length};
+    }
+    
+    Vector operator*(double scalar) const {
+        return {x * scalar, y * scalar};
+    }
+};
+
+struct Line {
+    Point p;
+    Vector v;
+    
+    Line(const Point& p, const Vector& v) : p(p), v(v) {}
+    
+    // Replace std::optional with a pointer
+    Point* intersect(const Line& other) const {
+        double cross = v.x * other.v.y - v.y * other.v.x;
+        if (std::abs(cross) < 1e-8) {
+            return nullptr;
+        }
+        double t = ((other.p.x - p.x) * other.v.y - (other.p.y - p.y) * other.v.x) / cross;
+        Point* intersection = new Point{p.x + t * v.x, p.y + t * v.y};
+        return intersection;
+    }
+};
+
+struct LineSegment {
+    Point p1, p2;
+    
+    LineSegment(const Point& p1, const Point& p2) : p1(p1), p2(p2) {}
+    
+    Vector v() const {
+        return {p2.x - p1.x, p2.y - p1.y};
+    }
+    
+    double distance(const Point& p) const {
+        Line line(p1, v());
+        Point* intersection = line.intersect(Line(p, v()));
+        if (intersection == nullptr) {
+            return std::min(p.distance(p1), p.distance(p2));
+        }
+        double d = intersection->distance(p);
+        delete intersection;
+        return d;
+    }
+};
+
+std::vector<Point> normalize_contour(const std::vector<Point>& points) {
+    std::vector<Point> result;
+    for (size_t i = 0; i < points.size(); ++i) {
+        const Point& prev = points[(i + points.size() - 1) % points.size()];
+        const Point& point = points[i];
+        const Point& next = points[(i + 1) % points.size()];
+        if (!(point == next || (point - prev).normalized() == (next - point).normalized())) {
+            result.push_back(point);
+        }
+    }
+    return result;
+}
+
+struct SplitEvent {
+    // Fill in as necessary
+};
+
+struct EdgeEvent {
+    // Fill in as necessary
+};
+
+// Replace std::variant with a union and type identifier
+enum EventType {
+    SPLIT,
+    EDGE
+};
+
+struct Event {
+    EventType type;
+    union {
+        SplitEvent splitEvent;
+        EdgeEvent edgeEvent;
+    };
+};
+
+// Custom optional-like class
+template<typename T>
+class Optional {
+    bool is_set;
+    T value;
+public:
+    Optional() : is_set(false) {}
+    Optional(const T& value) : is_set(true), value(value) {}
+    
+    bool has_value() const { return is_set; }
+    T& operator*() { return value; }
+    const T& operator*() const { return value; }
+};
+
+struct OriginalEdge {
+    // Fill in as necessary
+};
+
+struct SLAV;
+struct LAV;
+
+struct LAVertex {
+    Point point;
+    LineSegment edge_left, edge_right;
+    int type;
+    LAV* lav;
+    bool is_valid;
+
+    LAVertex(const Point& point, const LineSegment& edge_left, const LineSegment& edge_right, int type) 
+        : point(point), edge_left(edge_left), edge_right(edge_right), type(type), lav(nullptr), is_valid(true) {
+        Vector creator_vectors[2] = { edge_left.v().normalized() * -1, edge_right.v().normalized() };
+    }
+    
+    void invalidate() {
+        is_valid = false;
+        if (lav) lav->invalidate(this);
+    }
+    
+    Optional<Event> next_event(const std::vector<OriginalEdge>& original_edges);
+};
+
+struct LAV {
+    std::vector<LAVertex*> vertices;
+    SLAV* slav;
+    
+    static LAV from_polygon(const std::vector<Point>& polygon, SLAV* slav) {
+        LAV lav;
+        lav.slav = slav;
+        for (size_t i = 0; i < polygon.size(); ++i) {
+            const Point& prev = polygon[(i + polygon.size() - 1) % polygon.size()];
+            const Point& point = polygon[i];
+            const Point& next = polygon[(i + 1) % polygon.size()];
+            auto vertex = new LAVertex(point, LineSegment(prev, point), LineSegment(point, next), 0);
+            vertex->lav = &lav;
+            lav.vertices.push_back(vertex);
+        }
+        return lav;
+    }
+    
+    void invalidate(LAVertex* vertex) {
+        // Invalidate logic
+    }
+    
+    LAVertex* unify(LAVertex* vertex_a, LAVertex* vertex_b, const Point& point) {
+        // Unify logic
+        return nullptr; // Replace with actual logic
+    }
+};
+
+struct Subtree {
+    // Fill in as necessary
+};
+
+struct SLAV {
+    LAV lav;
+    std::vector<OriginalEdge> original_edges;
+    
+    std::pair<Subtree, std::vector<Event>> handle_edge_event(const EdgeEvent& event) {
+        std::vector<Event> new_events;
+        // Handle edge event logic
+        return std::make_pair(Subtree(), new_events);
+    }
+    
+    std::pair<Subtree, std::vector<Event>> handle_split_event(const SplitEvent& event) {
+        std::vector<Event> new_events;
+        // Handle split event logic
+        return std::make_pair(Subtree(), new_events);
+    }
+    
+    std::vector<Subtree> process_next_events(std::priority_queue<Event>& event_queue) {
+        std::vector<Subtree> new_subtrees;
+        while (!event_queue.empty()) {
+            Event event = event_queue.top();
+            event_queue.pop();
+            if (event.type == EDGE) {
+                EdgeEvent edge_event = event.edgeEvent;
+                auto result = handle_edge_event(edge_event);
+                new_subtrees.push_back(result.first);
+                for (const auto& new_event : result.second) {
+                    event_queue.push(new_event);
+                }
+            } else if (event.type == SPLIT) {
+                SplitEvent split_event = event.splitEvent;
+                auto result = handle_split_event(split_event);
+                new_subtrees.push_back(result.first);
+                for (const auto& new_event : result.second) {
+                    event_queue.push(new_event);
+                }
+            }
+        }
+        return new_subtrees;
+    }
+};
+
+Optional<Event> LAVertex::next_event(const std::vector<OriginalEdge>& original_edges) {
+    // Determine the next event logic
+    return Optional<Event>(); // Replace with actual logic
+}
+
+std::vector<Subtree> compute_voronoi_subtrees(const std::vector<Point>& polygon, const std::vector<std::vector<Point>>& holes) {
+    std::priority_queue<Event> event_queue;
+    SLAV slav;
+    slav.lav = LAV::from_polygon(normalize_contour(polygon), &slav);
+    for (LAVertex* vertex : slav.lav.vertices) {
+        Optional<Event> next_event = vertex->next_event(slav.original_edges);
+        if (next_event.has_value()) {
+            event_queue.push(*next_event);
+        }
+    }
+    return slav.process_next_events(event_queue);
+}
+
+int main() {
+    // Sample polygon and holes
+    std::vector<Point> polygon = {{0, 0}, {10, 0}, {10, 10}, {0, 10}};
+    std::vector<std::vector<Point>> holes = {{{3, 3}, {6, 3}, {6, 6}, {3, 6}}};
+    
+    std::vector<Subtree> subtrees = compute_voronoi_subtrees(polygon, holes);
+    
+    std::cout << "Computed " << subtrees.size() << " Voronoi subtrees." << std::endl;
+    
+    return 0;
+}
