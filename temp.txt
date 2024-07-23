@@ -1,221 +1,281 @@
 [L13450163@whrd87 skel2]$ g++ -std=c++11 skel.cpp -o main
-skel.cpp:72:5: error: 'optional' in namespace 'std' does not name a type
-     std::optional<Point> intersect(const Line& other) const {
-     ^
-skel.cpp: In member function 'double LineSegment::distance(const Point&) const':
-skel.cpp:92:30: error: 'class Line' has no member named 'intersect'
-         return Line(p1, v()).intersect(Line(p, v())).distance(p);
-                              ^
 skel.cpp: In function 'std::vector<Point> normalize_contour(const std::vector<Point>&)':
-skel.cpp:110:47: error: 'class Point' has no member named 'normalized'
+skel.cpp:81:47: error: 'struct Point' has no member named 'normalized'
          if (!(point == next || (point - prev).normalized() == (next - point).normalized())) {
                                                ^
-skel.cpp:110:78: error: 'class Point' has no member named 'normalized'
+skel.cpp:81:78: error: 'struct Point' has no member named 'normalized'
          if (!(point == next || (point - prev).normalized() == (next - point).normalized())) {
                                                                               ^
-skel.cpp: At global scope:
-skel.cpp:126:15: error: expected type-specifier
- using Event = std::variant<SplitEvent, EdgeEvent>;
-               ^
-skel.cpp:172:20: error: 'optional' in namespace 'std' does not name a type
-              const std::optional<std::pair<Vector, Vector>>& direction_vectors = std::nullopt)
-                    ^
-skel.cpp:172:25: error: ISO C++ forbids declaration of 'parameter' with no type [-fpermissive]
-              const std::optional<std::pair<Vector, Vector>>& direction_vectors = std::nullopt)
-                         ^
-skel.cpp:172:33: error: expected ',' or '...' before '<' token
-              const std::optional<std::pair<Vector, Vector>>& direction_vectors = std::nullopt)
-                                 ^
-skel.cpp:181:5: error: 'optional' in namespace 'std' does not name a type
-     std::optional<Event> next_event(const std::vector<OriginalEdge>& original_edges);
-     ^
-skel.cpp: In constructor 'LAVertex::LAVertex(const Point&, const LineSegment&, const LineSegment&, int)':
-skel.cpp:174:38: error: no matching function for call to 'Line::Line()'
-           lav(nullptr), is_valid(true) {
-                                      ^
-skel.cpp:174:38: note: candidates are:
-skel.cpp:70:5: note: Line::Line(const Point&, const Vector&)
-     Line(const Point& p, const Vector& v) : p(p), v(v) {}
-     ^
-skel.cpp:70:5: note:   candidate expects 2 arguments, 0 provided
-skel.cpp:66:7: note: constexpr Line::Line(const Line&)
- class Line {
-       ^
-skel.cpp:66:7: note:   candidate expects 1 argument, 0 provided
-skel.cpp:66:7: note: constexpr Line::Line(Line&&)
-skel.cpp:66:7: note:   candidate expects 1 argument, 0 provided
-skel.cpp:175:66: error: no match for 'operator*' (operand types are 'Vector' and 'int')
-         Vector creator_vectors[2] = { edge_left.v().normalized() * -1, edge_right.v().normalized() };
-                                                                  ^
-skel.cpp:176:24: error: 'direction_vectors' was not declared in this scope
-         auto vectors = direction_vectors ? *direction_vectors : std::make_pair(creator_vectors[0], creator_vectors[1]);
-                        ^
 skel.cpp: In member function 'void LAVertex::invalidate()':
-skel.cpp:185:16: error: invalid use of incomplete type 'struct LAV'
-             lav->invalidate(this);
-                ^
-skel.cpp:123:8: error: forward declaration of 'struct LAV'
+skel.cpp:145:21: error: invalid use of incomplete type 'struct LAV'
+         if (lav) lav->invalidate(this);
+                     ^
+skel.cpp:129:8: error: forward declaration of 'struct LAV'
  struct LAV;
         ^
-skel.cpp: In static member function 'static LAV LAV::from_polygon(const std::vector<Point>&, SLAV*)':
-skel.cpp:206:97: error: no matching function for call to 'LAVertex::LAVertex(Point&, LineSegment, LineSegment)'
-             auto vertex = new LAVertex(point, LineSegment(prev, point), LineSegment(point, next));
-                                                                                                 ^
-skel.cpp:206:97: note: candidates are:
-skel.cpp:171:5: note: LAVertex::LAVertex(const Point&, const LineSegment&, const LineSegment&, int)
-     LAVertex(const Point& point, const LineSegment& edge_left, const LineSegment& edge_right,
+In file included from /usr/include/c++/4.8.2/string:48:0,
+                 from /usr/include/c++/4.8.2/bits/locale_classes.h:40,
+                 from /usr/include/c++/4.8.2/bits/ios_base.h:41,
+                 from /usr/include/c++/4.8.2/ios:42,
+                 from /usr/include/c++/4.8.2/ostream:38,
+                 from /usr/include/c++/4.8.2/iostream:39,
+                 from skel.cpp:1:
+/usr/include/c++/4.8.2/bits/stl_function.h: In instantiation of 'bool std::less<_Tp>::operator()(const _Tp&, const _Tp&) const [with _Tp = Event]':
+/usr/include/c++/4.8.2/bits/stl_heap.h:183:47:   required from 'void std::__push_heap(_RandomAccessIterator, _Distance, _Distance, _Tp, _Compare) [with _RandomAccessIterator = __gnu_cxx::__normal_iterator<Event*, std::vector<Event> >; _Distance = long int; _Tp = Event; _Compare = std::less<Event>]'
+/usr/include/c++/4.8.2/bits/stl_heap.h:222:58:   required from 'void std::push_heap(_RandomAccessIterator, _RandomAccessIterator, _Compare) [with _RandomAccessIterator = __gnu_cxx::__normal_iterator<Event*, std::vector<Event> >; _Compare = std::less<Event>]'
+/usr/include/c++/4.8.2/bits/stl_queue.h:499:41:   required from 'void std::priority_queue<_Tp, _Sequence, _Compare>::push(const value_type&) [with _Tp = Event; _Sequence = std::vector<Event>; _Compare = std::less<Event>; std::priority_queue<_Tp, _Sequence, _Compare>::value_type = Event]'
+skel.cpp:209:47:   required from here
+/usr/include/c++/4.8.2/bits/stl_function.h:235:20: error: no match for 'operator<' (operand types are 'const Event' and 'const Event')
+       { return __x < __y; }
+                    ^
+/usr/include/c++/4.8.2/bits/stl_function.h:235:20: note: candidates are:
+In file included from /usr/include/c++/4.8.2/bits/stl_algobase.h:64:0,
+                 from /usr/include/c++/4.8.2/bits/char_traits.h:39,
+                 from /usr/include/c++/4.8.2/ios:40,
+                 from /usr/include/c++/4.8.2/ostream:38,
+                 from /usr/include/c++/4.8.2/iostream:39,
+                 from skel.cpp:1:
+/usr/include/c++/4.8.2/bits/stl_pair.h:220:5: note: template<class _T1, class _T2> constexpr bool std::operator<(const std::pair<_T1, _T2>&, const std::pair<_T1, _T2>&)
+     operator<(const pair<_T1, _T2>& __x, const pair<_T1, _T2>& __y)
      ^
-skel.cpp:171:5: note:   candidate expects 4 arguments, 3 provided
-skel.cpp:161:8: note: constexpr LAVertex::LAVertex(const LAVertex&)
- struct LAVertex {
-        ^
-skel.cpp:161:8: note:   candidate expects 1 argument, 3 provided
-skel.cpp:161:8: note: constexpr LAVertex::LAVertex(LAVertex&&)
-skel.cpp:161:8: note:   candidate expects 1 argument, 3 provided
-skel.cpp: In member function 'LAVertex* LAV::unify(LAVertex*, LAVertex*, const Point&)':
-skel.cpp:243:41: error: 'make_optional' is not a member of 'std'
-                                         std::make_optional(std::make_pair(vertex_b->bisector.v, vertex_a->bisector.v)));
-                                         ^
-skel.cpp: At global scope:
-skel.cpp:282:36: error: 'Event' was not declared in this scope
-     std::pair<Subtree, std::vector<Event>> handle_edge_event(const EdgeEvent& event) {
-                                    ^
-skel.cpp:282:36: error: template argument 1 is invalid
-skel.cpp:282:36: error: template argument 2 is invalid
-skel.cpp:282:41: error: template argument 2 is invalid
-     std::pair<Subtree, std::vector<Event>> handle_edge_event(const EdgeEvent& event) {
-                                         ^
-skel.cpp:307:36: error: 'Event' was not declared in this scope
-     std::pair<Subtree, std::vector<Event>> handle_split_event(const SplitEvent& event) {
-                                    ^
-skel.cpp:307:36: error: template argument 1 is invalid
-skel.cpp:307:36: error: template argument 2 is invalid
-skel.cpp:307:41: error: template argument 2 is invalid
-     std::pair<Subtree, std::vector<Event>> handle_split_event(const SplitEvent& event) {
-                                         ^
-skel.cpp:354:66: error: 'Event' was not declared in this scope
-     std::vector<Subtree> process_next_events(std::priority_queue<Event>& event_queue) {
-                                                                  ^
-skel.cpp:354:71: error: template argument 1 is invalid
-     std::vector<Subtree> process_next_events(std::priority_queue<Event>& event_queue) {
-                                                                       ^
-skel.cpp:354:71: error: template argument 2 is invalid
-skel.cpp:354:71: error: template argument 3 is invalid
-skel.cpp: In member function 'int SLAV::handle_edge_event(const EdgeEvent&)':
-skel.cpp:286:21: error: 'Event' was not declared in this scope
-         std::vector<Event> new_events;
-                     ^
-skel.cpp:286:26: error: template argument 1 is invalid
-         std::vector<Event> new_events;
-                          ^
-skel.cpp:286:26: error: template argument 2 is invalid
-skel.cpp:286:38: error: invalid type in declaration before ';' token
-         std::vector<Event> new_events;
-                                      ^
-skel.cpp: In lambda function:
-skel.cpp:292:40: error: 'struct LAVertex' has no member named 'next_event'
-             auto split_event = vertex->next_event(original_edges);
-                                        ^
-skel.cpp:294:28: error: request for member 'push_back' in 'new_events', which is of non-class type 'int'
-                 new_events.push_back(*split_event);
-                            ^
-skel.cpp: In member function 'int SLAV::handle_edge_event(const EdgeEvent&)':
-skel.cpp:304:36: error: cannot convert '<brace-enclosed initializer list>' to 'int' in return
-         return {subtree, new_events};
-                                    ^
-skel.cpp: In member function 'int SLAV::handle_split_event(const SplitEvent&)':
-skel.cpp:311:21: error: 'Event' was not declared in this scope
-         std::vector<Event> new_events;
-                     ^
-skel.cpp:311:26: error: template argument 1 is invalid
-         std::vector<Event> new_events;
-                          ^
-skel.cpp:311:26: error: template argument 2 is invalid
-skel.cpp:311:38: error: invalid type in declaration before ';' token
-         std::vector<Event> new_events;
-                                      ^
-skel.cpp:318:41: error: 'make_optional' is not a member of 'std'
-                                         std::make_optional(std::make_pair(event.vertex->bisector.v, vertex->next->bisector.v)));
-                                         ^
-skel.cpp:320:61: error: 'make_optional' is not a member of 'std'
-                                         vertex->edge_right, std::make_optional(std::make_pair(vertex->prev->bisector.v, vertex->bisector.v)));
-                                                             ^
-skel.cpp: In lambda function:
-skel.cpp:338:40: error: 'struct LAVertex' has no member named 'next_event'
-             auto split_event = vertex->next_event(original_edges);
-                                        ^
-skel.cpp:340:28: error: request for member 'push_back' in 'new_events', which is of non-class type 'int'
-                 new_events.push_back(*split_event);
-                            ^
-skel.cpp: In member function 'int SLAV::handle_split_event(const SplitEvent&)':
-skel.cpp:351:36: error: cannot convert '<brace-enclosed initializer list>' to 'int' in return
-         return {subtree, new_events};
-                                    ^
-skel.cpp: In member function 'std::vector<Subtree> SLAV::process_next_events(int&)':
-skel.cpp:357:29: error: request for member 'empty' in 'event_queue', which is of non-class type 'int'
-         while (!event_queue.empty()) {
-                             ^
-skel.cpp:358:38: error: request for member 'top' in 'event_queue', which is of non-class type 'int'
-             auto event = event_queue.top();
-                                      ^
-skel.cpp:359:25: error: request for member 'pop' in 'event_queue', which is of non-class type 'int'
-             event_queue.pop();
-                         ^
-skel.cpp:361:17: error: 'holds_alternative' is not a member of 'std'
-             if (std::holds_alternative<EdgeEvent>(event)) {
-                 ^
-skel.cpp:361:49: error: expected primary-expression before '>' token
-             if (std::holds_alternative<EdgeEvent>(event)) {
-                                                 ^
-skel.cpp:365:22: error: expected unqualified-id before '[' token
-                 auto [subtree, new_events] = handle_edge_event(edge_event);
-                      ^
-skel.cpp:366:40: error: 'subtree' was not declared in this scope
-                 new_subtrees.push_back(subtree);
-                                        ^
-skel.cpp:368:46: error: 'new_events' was not declared in this scope
-                 for (const auto& new_event : new_events) {
-                                              ^
-skel.cpp:369:33: error: request for member 'push' in 'event_queue', which is of non-class type 'int'
-                     event_queue.push(new_event);
-                                 ^
-skel.cpp:371:24: error: 'holds_alternative' is not a member of 'std'
-             } else if (std::holds_alternative<SplitEvent>(event)) {
-                        ^
-skel.cpp:371:57: error: expected primary-expression before '>' token
-             } else if (std::holds_alternative<SplitEvent>(event)) {
-                                                         ^
-skel.cpp:375:22: error: expected unqualified-id before '[' token
-                 auto [subtree, new_events] = handle_split_event(split_event);
-                      ^
-skel.cpp:376:40: error: 'subtree' was not declared in this scope
-                 new_subtrees.push_back(subtree);
-                                        ^
-skel.cpp:378:46: error: 'new_events' was not declared in this scope
-                 for (const auto& new_event : new_events) {
-                                              ^
-skel.cpp:379:33: error: request for member 'push' in 'event_queue', which is of non-class type 'int'
-                     event_queue.push(new_event);
-                                 ^
-skel.cpp: At global scope:
-skel.cpp:388:1: error: 'optional' in namespace 'std' does not name a type
- std::optional<Event> LAVertex::next_event(const std::vector<OriginalEdge>& original_edges) {
- ^
-skel.cpp: In function 'std::vector<Subtree> compute_voronoi_subtrees(const std::vector<Point>&, const std::vector<std::vector<Point> >&)':
-skel.cpp:429:25: error: 'Event' was not declared in this scope
-     std::priority_queue<Event> event_queue;
-                         ^
-skel.cpp:429:30: error: template argument 1 is invalid
-     std::priority_queue<Event> event_queue;
-                              ^
-skel.cpp:429:30: error: template argument 2 is invalid
-skel.cpp:429:30: error: template argument 3 is invalid
-skel.cpp:429:43: error: invalid type in declaration before ';' token
-     std::priority_queue<Event> event_queue;
-                                           ^
-skel.cpp:433:39: error: 'struct LAVertex' has no member named 'next_event'
-             auto next_event = vertex->next_event(slav.original_edges);
-                                       ^
-skel.cpp:435:29: error: request for member 'push' in 'event_queue', which is of non-class type 'int'
-                 event_queue.push(*next_event);
+/usr/include/c++/4.8.2/bits/stl_pair.h:220:5: note:   template argument deduction/substitution failed:
+In file included from /usr/include/c++/4.8.2/string:48:0,
+                 from /usr/include/c++/4.8.2/bits/locale_classes.h:40,
+                 from /usr/include/c++/4.8.2/bits/ios_base.h:41,
+                 from /usr/include/c++/4.8.2/ios:42,
+                 from /usr/include/c++/4.8.2/ostream:38,
+                 from /usr/include/c++/4.8.2/iostream:39,
+                 from skel.cpp:1:
+/usr/include/c++/4.8.2/bits/stl_function.h:235:20: note:   'const Event' is not derived from 'const std::pair<_T1, _T2>'
+       { return __x < __y; }
+                    ^
+In file included from /usr/include/c++/4.8.2/bits/stl_algobase.h:67:0,
+                 from /usr/include/c++/4.8.2/bits/char_traits.h:39,
+                 from /usr/include/c++/4.8.2/ios:40,
+                 from /usr/include/c++/4.8.2/ostream:38,
+                 from /usr/include/c++/4.8.2/iostream:39,
+                 from skel.cpp:1:
+/usr/include/c++/4.8.2/bits/stl_iterator.h:297:5: note: template<class _Iterator> bool std::operator<(const std::reverse_iterator<_Iterator>&, const std::reverse_iterator<_Iterator>&)
+     operator<(const reverse_iterator<_Iterator>& __x,
+     ^
+/usr/include/c++/4.8.2/bits/stl_iterator.h:297:5: note:   template argument deduction/substitution failed:
+In file included from /usr/include/c++/4.8.2/string:48:0,
+                 from /usr/include/c++/4.8.2/bits/locale_classes.h:40,
+                 from /usr/include/c++/4.8.2/bits/ios_base.h:41,
+                 from /usr/include/c++/4.8.2/ios:42,
+                 from /usr/include/c++/4.8.2/ostream:38,
+                 from /usr/include/c++/4.8.2/iostream:39,
+                 from skel.cpp:1:
+/usr/include/c++/4.8.2/bits/stl_function.h:235:20: note:   'const Event' is not derived from 'const std::reverse_iterator<_Iterator>'
+       { return __x < __y; }
+                    ^
+In file included from /usr/include/c++/4.8.2/bits/stl_algobase.h:67:0,
+                 from /usr/include/c++/4.8.2/bits/char_traits.h:39,
+                 from /usr/include/c++/4.8.2/ios:40,
+                 from /usr/include/c++/4.8.2/ostream:38,
+                 from /usr/include/c++/4.8.2/iostream:39,
+                 from skel.cpp:1:
+/usr/include/c++/4.8.2/bits/stl_iterator.h:347:5: note: template<class _IteratorL, class _IteratorR> bool std::operator<(const std::reverse_iterator<_Iterator>&, const std::reverse_iterator<_IteratorR>&)
+     operator<(const reverse_iterator<_IteratorL>& __x,
+     ^
+/usr/include/c++/4.8.2/bits/stl_iterator.h:347:5: note:   template argument deduction/substitution failed:
+In file included from /usr/include/c++/4.8.2/string:48:0,
+                 from /usr/include/c++/4.8.2/bits/locale_classes.h:40,
+                 from /usr/include/c++/4.8.2/bits/ios_base.h:41,
+                 from /usr/include/c++/4.8.2/ios:42,
+                 from /usr/include/c++/4.8.2/ostream:38,
+                 from /usr/include/c++/4.8.2/iostream:39,
+                 from skel.cpp:1:
+/usr/include/c++/4.8.2/bits/stl_function.h:235:20: note:   'const Event' is not derived from 'const std::reverse_iterator<_Iterator>'
+       { return __x < __y; }
+                    ^
+In file included from /usr/include/c++/4.8.2/bits/stl_algobase.h:67:0,
+                 from /usr/include/c++/4.8.2/bits/char_traits.h:39,
+                 from /usr/include/c++/4.8.2/ios:40,
+                 from /usr/include/c++/4.8.2/ostream:38,
+                 from /usr/include/c++/4.8.2/iostream:39,
+                 from skel.cpp:1:
+/usr/include/c++/4.8.2/bits/stl_iterator.h:1055:5: note: template<class _IteratorL, class _IteratorR> bool std::operator<(const std::move_iterator<_Iterator>&, const std::move_iterator<_IteratorR>&)
+     operator<(const move_iterator<_IteratorL>& __x,
+     ^
+/usr/include/c++/4.8.2/bits/stl_iterator.h:1055:5: note:   template argument deduction/substitution failed:
+In file included from /usr/include/c++/4.8.2/string:48:0,
+                 from /usr/include/c++/4.8.2/bits/locale_classes.h:40,
+                 from /usr/include/c++/4.8.2/bits/ios_base.h:41,
+                 from /usr/include/c++/4.8.2/ios:42,
+                 from /usr/include/c++/4.8.2/ostream:38,
+                 from /usr/include/c++/4.8.2/iostream:39,
+                 from skel.cpp:1:
+/usr/include/c++/4.8.2/bits/stl_function.h:235:20: note:   'const Event' is not derived from 'const std::move_iterator<_Iterator>'
+       { return __x < __y; }
+                    ^
+In file included from /usr/include/c++/4.8.2/bits/stl_algobase.h:67:0,
+                 from /usr/include/c++/4.8.2/bits/char_traits.h:39,
+                 from /usr/include/c++/4.8.2/ios:40,
+                 from /usr/include/c++/4.8.2/ostream:38,
+                 from /usr/include/c++/4.8.2/iostream:39,
+                 from skel.cpp:1:
+/usr/include/c++/4.8.2/bits/stl_iterator.h:1061:5: note: template<class _Iterator> bool std::operator<(const std::move_iterator<_Iterator>&, const std::move_iterator<_Iterator>&)
+     operator<(const move_iterator<_Iterator>& __x,
+     ^
+/usr/include/c++/4.8.2/bits/stl_iterator.h:1061:5: note:   template argument deduction/substitution failed:
+In file included from /usr/include/c++/4.8.2/string:48:0,
+                 from /usr/include/c++/4.8.2/bits/locale_classes.h:40,
+                 from /usr/include/c++/4.8.2/bits/ios_base.h:41,
+                 from /usr/include/c++/4.8.2/ios:42,
+                 from /usr/include/c++/4.8.2/ostream:38,
+                 from /usr/include/c++/4.8.2/iostream:39,
+                 from skel.cpp:1:
+/usr/include/c++/4.8.2/bits/stl_function.h:235:20: note:   'const Event' is not derived from 'const std::move_iterator<_Iterator>'
+       { return __x < __y; }
+                    ^
+In file included from /usr/include/c++/4.8.2/string:52:0,
+                 from /usr/include/c++/4.8.2/bits/locale_classes.h:40,
+                 from /usr/include/c++/4.8.2/bits/ios_base.h:41,
+                 from /usr/include/c++/4.8.2/ios:42,
+                 from /usr/include/c++/4.8.2/ostream:38,
+                 from /usr/include/c++/4.8.2/iostream:39,
+                 from skel.cpp:1:
+/usr/include/c++/4.8.2/bits/basic_string.h:2569:5: note: template<class _CharT, class _Traits, class _Alloc> bool std::operator<(const std::basic_string<_CharT, _Traits, _Alloc>&, const std::basic_string<_CharT, _Traits, _Alloc>&)
+     operator<(const basic_string<_CharT, _Traits, _Alloc>& __lhs,
+     ^
+/usr/include/c++/4.8.2/bits/basic_string.h:2569:5: note:   template argument deduction/substitution failed:
+In file included from /usr/include/c++/4.8.2/string:48:0,
+                 from /usr/include/c++/4.8.2/bits/locale_classes.h:40,
+                 from /usr/include/c++/4.8.2/bits/ios_base.h:41,
+                 from /usr/include/c++/4.8.2/ios:42,
+                 from /usr/include/c++/4.8.2/ostream:38,
+                 from /usr/include/c++/4.8.2/iostream:39,
+                 from skel.cpp:1:
+/usr/include/c++/4.8.2/bits/stl_function.h:235:20: note:   'const Event' is not derived from 'const std::basic_string<_CharT, _Traits, _Alloc>'
+       { return __x < __y; }
+                    ^
+In file included from /usr/include/c++/4.8.2/string:52:0,
+                 from /usr/include/c++/4.8.2/bits/locale_classes.h:40,
+                 from /usr/include/c++/4.8.2/bits/ios_base.h:41,
+                 from /usr/include/c++/4.8.2/ios:42,
+                 from /usr/include/c++/4.8.2/ostream:38,
+                 from /usr/include/c++/4.8.2/iostream:39,
+                 from skel.cpp:1:
+/usr/include/c++/4.8.2/bits/basic_string.h:2581:5: note: template<class _CharT, class _Traits, class _Alloc> bool std::operator<(const std::basic_string<_CharT, _Traits, _Alloc>&, const _CharT*)
+     operator<(const basic_string<_CharT, _Traits, _Alloc>& __lhs,
+     ^
+/usr/include/c++/4.8.2/bits/basic_string.h:2581:5: note:   template argument deduction/substitution failed:
+In file included from /usr/include/c++/4.8.2/string:48:0,
+                 from /usr/include/c++/4.8.2/bits/locale_classes.h:40,
+                 from /usr/include/c++/4.8.2/bits/ios_base.h:41,
+                 from /usr/include/c++/4.8.2/ios:42,
+                 from /usr/include/c++/4.8.2/ostream:38,
+                 from /usr/include/c++/4.8.2/iostream:39,
+                 from skel.cpp:1:
+/usr/include/c++/4.8.2/bits/stl_function.h:235:20: note:   'const Event' is not derived from 'const std::basic_string<_CharT, _Traits, _Alloc>'
+       { return __x < __y; }
+                    ^
+In file included from /usr/include/c++/4.8.2/string:52:0,
+                 from /usr/include/c++/4.8.2/bits/locale_classes.h:40,
+                 from /usr/include/c++/4.8.2/bits/ios_base.h:41,
+                 from /usr/include/c++/4.8.2/ios:42,
+                 from /usr/include/c++/4.8.2/ostream:38,
+                 from /usr/include/c++/4.8.2/iostream:39,
+                 from skel.cpp:1:
+/usr/include/c++/4.8.2/bits/basic_string.h:2593:5: note: template<class _CharT, class _Traits, class _Alloc> bool std::operator<(const _CharT*, const std::basic_string<_CharT, _Traits, _Alloc>&)
+     operator<(const _CharT* __lhs,
+     ^
+/usr/include/c++/4.8.2/bits/basic_string.h:2593:5: note:   template argument deduction/substitution failed:
+In file included from /usr/include/c++/4.8.2/string:48:0,
+                 from /usr/include/c++/4.8.2/bits/locale_classes.h:40,
+                 from /usr/include/c++/4.8.2/bits/ios_base.h:41,
+                 from /usr/include/c++/4.8.2/ios:42,
+                 from /usr/include/c++/4.8.2/ostream:38,
+                 from /usr/include/c++/4.8.2/iostream:39,
+                 from skel.cpp:1:
+/usr/include/c++/4.8.2/bits/stl_function.h:235:20: note:   mismatched types 'const _CharT*' and 'Event'
+       { return __x < __y; }
+                    ^
+In file included from /usr/include/c++/4.8.2/vector:64:0,
+                 from skel.cpp:2:
+/usr/include/c++/4.8.2/bits/stl_vector.h:1421:5: note: template<class _Tp, class _Alloc> bool std::operator<(const std::vector<_Tp, _Alloc>&, const std::vector<_Tp, _Alloc>&)
+     operator<(const vector<_Tp, _Alloc>& __x, const vector<_Tp, _Alloc>& __y)
+     ^
+/usr/include/c++/4.8.2/bits/stl_vector.h:1421:5: note:   template argument deduction/substitution failed:
+In file included from /usr/include/c++/4.8.2/string:48:0,
+                 from /usr/include/c++/4.8.2/bits/locale_classes.h:40,
+                 from /usr/include/c++/4.8.2/bits/ios_base.h:41,
+                 from /usr/include/c++/4.8.2/ios:42,
+                 from /usr/include/c++/4.8.2/ostream:38,
+                 from /usr/include/c++/4.8.2/iostream:39,
+                 from skel.cpp:1:
+/usr/include/c++/4.8.2/bits/stl_function.h:235:20: note:   'const Event' is not derived from 'const std::vector<_Tp, _Alloc>'
+       { return __x < __y; }
+                    ^
+In file included from /usr/include/c++/4.8.2/deque:64:0,
+                 from /usr/include/c++/4.8.2/queue:60,
+                 from skel.cpp:3:
+/usr/include/c++/4.8.2/bits/stl_deque.h:273:5: note: template<class _Tp, class _Ref, class _Ptr> bool std::operator<(const std::_Deque_iterator<_Tp, _Ref, _Ptr>&, const std::_Deque_iterator<_Tp, _Ref, _Ptr>&)
+     operator<(const _Deque_iterator<_Tp, _Ref, _Ptr>& __x,
+     ^
+/usr/include/c++/4.8.2/bits/stl_deque.h:273:5: note:   template argument deduction/substitution failed:
+In file included from /usr/include/c++/4.8.2/string:48:0,
+                 from /usr/include/c++/4.8.2/bits/locale_classes.h:40,
+                 from /usr/include/c++/4.8.2/bits/ios_base.h:41,
+                 from /usr/include/c++/4.8.2/ios:42,
+                 from /usr/include/c++/4.8.2/ostream:38,
+                 from /usr/include/c++/4.8.2/iostream:39,
+                 from skel.cpp:1:
+/usr/include/c++/4.8.2/bits/stl_function.h:235:20: note:   'const Event' is not derived from 'const std::_Deque_iterator<_Tp, _Ref, _Ptr>'
+       { return __x < __y; }
+                    ^
+In file included from /usr/include/c++/4.8.2/deque:64:0,
+                 from /usr/include/c++/4.8.2/queue:60,
+                 from skel.cpp:3:
+/usr/include/c++/4.8.2/bits/stl_deque.h:281:5: note: template<class _Tp, class _RefL, class _PtrL, class _RefR, class _PtrR> bool std::operator<(const std::_Deque_iterator<_Tp, _Ref, _Ptr>&, const std::_Deque_iterator<_Tp, _RefR, _PtrR>&)
+     operator<(const _Deque_iterator<_Tp, _RefL, _PtrL>& __x,
+     ^
+/usr/include/c++/4.8.2/bits/stl_deque.h:281:5: note:   template argument deduction/substitution failed:
+In file included from /usr/include/c++/4.8.2/string:48:0,
+                 from /usr/include/c++/4.8.2/bits/locale_classes.h:40,
+                 from /usr/include/c++/4.8.2/bits/ios_base.h:41,
+                 from /usr/include/c++/4.8.2/ios:42,
+                 from /usr/include/c++/4.8.2/ostream:38,
+                 from /usr/include/c++/4.8.2/iostream:39,
+                 from skel.cpp:1:
+/usr/include/c++/4.8.2/bits/stl_function.h:235:20: note:   'const Event' is not derived from 'const std::_Deque_iterator<_Tp, _Ref, _Ptr>'
+       { return __x < __y; }
+                    ^
+In file included from /usr/include/c++/4.8.2/deque:64:0,
+                 from /usr/include/c++/4.8.2/queue:60,
+                 from skel.cpp:3:
+/usr/include/c++/4.8.2/bits/stl_deque.h:1975:5: note: template<class _Tp, class _Alloc> bool std::operator<(const std::deque<_Tp, _Alloc>&, const std::deque<_Tp, _Alloc>&)
+     operator<(const deque<_Tp, _Alloc>& __x,
+     ^
+/usr/include/c++/4.8.2/bits/stl_deque.h:1975:5: note:   template argument deduction/substitution failed:
+In file included from /usr/include/c++/4.8.2/string:48:0,
+                 from /usr/include/c++/4.8.2/bits/locale_classes.h:40,
+                 from /usr/include/c++/4.8.2/bits/ios_base.h:41,
+                 from /usr/include/c++/4.8.2/ios:42,
+                 from /usr/include/c++/4.8.2/ostream:38,
+                 from /usr/include/c++/4.8.2/iostream:39,
+                 from skel.cpp:1:
+/usr/include/c++/4.8.2/bits/stl_function.h:235:20: note:   'const Event' is not derived from 'const std::deque<_Tp, _Alloc>'
+       { return __x < __y; }
+                    ^
+In file included from /usr/include/c++/4.8.2/queue:64:0,
+                 from skel.cpp:3:
+/usr/include/c++/4.8.2/bits/stl_queue.h:286:5: note: template<class _Tp, class _Seq> bool std::operator<(const std::queue<_Tp, _Seq>&, const std::queue<_Tp, _Seq>&)
+     operator<(const queue<_Tp, _Seq>& __x, const queue<_Tp, _Seq>& __y)
+     ^
+/usr/include/c++/4.8.2/bits/stl_queue.h:286:5: note:   template argument deduction/substitution failed:
+In file included from /usr/include/c++/4.8.2/string:48:0,
+                 from /usr/include/c++/4.8.2/bits/locale_classes.h:40,
+                 from /usr/include/c++/4.8.2/bits/ios_base.h:41,
+                 from /usr/include/c++/4.8.2/ios:42,
+                 from /usr/include/c++/4.8.2/ostream:38,
+                 from /usr/include/c++/4.8.2/iostream:39,
+                 from skel.cpp:1:
+/usr/include/c++/4.8.2/bits/stl_function.h:235:20: note:   'const Event' is not derived from 'const std::queue<_Tp, _Seq>'
+       { return __x < __y; }
+                    ^
+[L13450163@whrd87 skel2]$ 
+[L13450163@whrd87 skel2]$ 
+
 
