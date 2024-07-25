@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <limits>
+#include <cmath>
 
 struct Point {
     double x, y;
@@ -51,7 +52,8 @@ std::pair<Point, Edge> findClosestIntersection(const Ray& ray, const std::vector
 
     for (int i = 0; i < polygon.size(); ++i) {
         int j = (i + 1) % polygon.size();
-        Edge edge = {{polygon[i].first, polygon[i].second}, {polygon[j].first, polygon[j].second}, i, j};
+        Edge edge = {{static_cast<double>(polygon[i].first), static_cast<double>(polygon[i].second)}, 
+                     {static_cast<double>(polygon[j].first), static_cast<double>(polygon[j].second)}, i, j};
         Point intersection;
         if (intersectRayWithEdge(ray, edge, intersection)) {
             double distance = std::sqrt(std::pow(intersection.x - ray.origin.x, 2) + std::pow(intersection.y - ray.origin.y, 2));
