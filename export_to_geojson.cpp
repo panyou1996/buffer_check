@@ -101,23 +101,24 @@ void export_geojson(const std::string& path) {
 
 int main() {
     float start = clock();
-    std::string file_path = "/workspace/projs/dth/proj_lib/L13450163/check/run_dicectory/0722/DTH_PERI_RevC.drc.results"; 
+    std::string file_path = "CORE_TILE_PERI.drc.results"; 
     parse_polygons(file_path);
 
     std::string output_path = "output.geojson";
     //export_geojson(output_path);
 
     std::cout << "GeoJSON has been exported to " << output_path << std::endl;
+    std::cout << "M1_polygons_size " << polygons["M1_polygons"].size() << std::endl;
 
     // 输出polygons map
     for (const auto& pair : polygons) {
         std::cout << "Key: " << pair.first << std::endl;
         std::cout << "Key_Length " << pair.second.size() << std::endl;
-    //    for (const auto& polygon : pair.second) {
-    //        for (const auto& point : polygon) {
-    //            std::cout << "  (" << point.first << ", " << point.second << ")" << std::endl;
-    //        }
-    //    }
+        for (const auto& polygon : pair.second) {
+            for (const auto& point : polygon) {
+                //std::cout << "  (" << point.first << ", " << point.second << ")" << std::endl;
+            }
+        }
     }
     std::cout << "Time " << clock() - start << std::endl;
     return 0;

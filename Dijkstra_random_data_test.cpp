@@ -3,7 +3,7 @@
 #include <cstdlib>
 #include <ctime>
 
-#define EDGES 10000
+#define EDGES 20000
 #define MAX_VERTICES 5000
 
 using namespace std;
@@ -14,7 +14,7 @@ int main() {
 
     // 创建输出文件流
     //ofstream outfile("dijkstra_test.in");
-    ofstream outfile("input.txt");
+    ofstream outfile("dijkstra_test.in");
     // 随机生成顶点数，这里假设最大顶点数为5000
     int vertices = 5000;
     outfile << vertices << " " << EDGES << 1 << endl;
